@@ -1,11 +1,8 @@
 # http-server
-
-basic http server
-
 ## Usage
 
 ```java
-package me.xyz;
+package me.xyz.http;
 
 public class HttpServerTest {
 

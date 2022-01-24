@@ -1,4 +1,4 @@
-package me.xyz;
+package me.xyz.http;
 
 @FunctionalInterface
 public interface HttpRoute {

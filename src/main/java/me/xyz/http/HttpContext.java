@@ -1,4 +1,4 @@
-package me.xyz;
+package me.xyz.http;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -13,17 +13,19 @@ import static io.netty.handler.codec.http.HttpHeaderValues.TEXT_PLAIN;
 import static io.netty.handler.codec.http.HttpResponseStatus.OK;
 
 public class HttpContext {
+    public final String uri;
+    public final HttpMethod method;
+    public final HttpHeaders headers;
+    public final ByteBuf data;
     public ByteBuf content;
-    public String uri;
-    public HttpMethod method;
-    public HttpHeaders headers;
-    public AsciiString contentType = TEXT_PLAIN;
-    public HttpResponseStatus responseStatus = OK;
+    public AsciiString contentType;
+    public HttpResponseStatus responseStatus;
 
-    public HttpContext(String uri, HttpMethod method, HttpHeaders headers) {
+    public HttpContext(String uri, HttpMethod method, HttpHeaders headers, ByteBuf data) {
         this.uri = uri;
         this.method = method;
         this.headers = headers;
+        this.data = data;
     }
 
     public void response(String response) {
@@ -56,24 +58,12 @@ public class HttpContext {
         return uri;
     }
 
-    public void setUri(String uri) {
-        this.uri = uri;
-    }
-
     public HttpMethod getMethod() {
         return method;
     }
 
-    public void setMethod(HttpMethod method) {
-        this.method = method;
-    }
-
     public HttpHeaders getHeaders() {
         return headers;
-    }
-
-    public void setHeaders(HttpHeaders headers) {
-        this.headers = headers;
     }
 
     public AsciiString getContentType() {
@@ -90,5 +80,13 @@ public class HttpContext {
 
     public void setResponseStatus(HttpResponseStatus responseStatus) {
         this.responseStatus = responseStatus;
+    }
+
+    public String getData() {
+        return data.toString(StandardCharsets.UTF_8);
+    }
+
+    public ByteBuf getDataByteBuf() {
+        return data;
     }
 }
